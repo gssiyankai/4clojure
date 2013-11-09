@@ -37,34 +37,34 @@
                       [:x :o :x]
                       [:o :x :o]]))))
 
-;(deftest test-8
-;  (is (= (solve :x [[:o :e :e]
-;                    [:o :x :o]
-;                    [:x :x :e]])
-;         #{[2 2] [0 1] [0 2]})))
-;
-;(deftest test-9
-;  (is (= (solve :x [[:x :o :o]
-;                    [:x :x :e]
-;                    [:e :o :e]])
-;         #{[2 2] [1 2] [2 0]})))
-;
-;(deftest test-10
-;  (is (= (solve :x [[:x :e :x]
-;                    [:o :x :o]
-;                    [:e :o :e]])
-;         #{[2 2] [0 1] [2 0]})))
-;
-;(deftest test-11
-;  (is (= (solve :x [[:x :x :o]
-;                 [:e :e :e]
-;                 [:e :e :e]])
-;          #{})))
-;
-;(deftest test-12
-;  (is (= (solve :o [[:x :x :o]
-;                 [:o :e :o]
-;                 [:x :e :e]])
-;         #{[2 2] [1 1]})))
+(deftest test-8
+  (is (= (solve :x [[:o :e :e]
+                    [:o :x :o]
+                    [:x :x :e]])
+         #{[2 2] [0 1] [0 2]})))
+
+(deftest test-9
+  (is (= (solve :x [[:x :o :o]
+                    [:x :x :e]
+                    [:e :o :e]])
+         #{[2 2] [1 2] [2 0]})))
+
+(deftest test-10
+  (is (= (solve :x [[:x :e :x]
+                    [:o :x :o]
+                    [:e :o :e]])
+         #{[2 2] [0 1] [2 0]})))
+
+(deftest test-11
+  (is (= (solve :x [[:x :x :o]
+                 [:e :e :e]
+                 [:e :e :e]])
+          #{})))
+
+(deftest test-12
+  (is (= (solve :o [[:x :x :o]
+                 [:o :e :o]
+                 [:x :e :e]])
+         #{[2 2] [1 1]})))
 
 (run-tests 'tic_tac_toe_test)
