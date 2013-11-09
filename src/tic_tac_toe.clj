@@ -16,7 +16,7 @@
   )
 
 (defn solve [player grid]
-  (let [positions (reduce (fn [acc-x pos-x] (concat acc-x (reduce (fn [acc-y pos-y] (conj acc-y [pos-x pos-y])) () (range 3)))) () (range 3))
+  (let [positions (for [x (range 3) y (range 3)] (vector x y))
         is-empty (fn [x y] (= :e ((grid x) y)))
         next-grid (fn [x y] (assoc grid x (assoc (grid x) y player)))
         is-winning-move (fn [[x y]] (and (is-empty x y) (= player (winner (next-grid x y)))))]
