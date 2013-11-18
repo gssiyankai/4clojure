@@ -1,19 +1,29 @@
 (ns transitive_closure)
 
-(defn add-relation [relations pair]
-  (conj
-    (reduce (fn [acc relation] (conj acc [(first relation) (second pair)])) relations
-      (filter (fn [relation] (= (first pair) (second relation))) relations))
-        [(first pair) (second pair)])
+(defn matching-relations [relations pair f1 f2]
+  (filter (fn [relation] (= (f1 pair) (f2 relation))) relations)
+)
+
+(defn add-relation-1 [relations pair]
+  (reduce
+    (fn [acc relation]
+      (conj acc [(first relation) (second pair)]))
+    relations
+    (matching-relations relations pair first second))
 )
 
 (defn add-relation-2 [relations pair]
-  (conj
-    (reduce (fn [acc relation] (conj acc [(first pair) (second relation)])) relations
-      (filter (fn [relation] (= (second pair) (first relation))) relations))
-    [(first pair) (second pair)])
+  (reduce
+    (fn [acc relation]
+      (conj acc [(first pair) (second relation)]))
+    relations
+    (matching-relations relations pair second first))
   )
 
-(defn generate [relation]
-  (reduce (fn [acc i] (add-relation-2 (add-relation acc i) i)) #{} relation)
+(defn generate [relations]
+  (reduce
+    (fn [relations pair]
+      (conj (add-relation-2 (add-relation-1 relations pair) pair) pair))
+      #{}
+    relations)
 )
