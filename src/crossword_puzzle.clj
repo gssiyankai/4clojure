@@ -6,7 +6,7 @@
                                            (filter #(not= % '(\#)))
                                            (map #(apply str %))))
         partial-words (flatten (vector (map partial-line-words board)
-                                       (map vector (flatten board))))
+                                       (map #(apply str %) (apply map vector (flatten board)))))
         candidate (fn [partial-word] (and (= (count word) (count partial-word))
                                           (->> (map vector word partial-word)
                                                (drop-while #(or (= (second %) \_) (apply = %)))
