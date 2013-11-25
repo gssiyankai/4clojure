@@ -10,7 +10,8 @@
   (is (= 100  (read-roman-numeral "C")))
   (is (= 500  (read-roman-numeral "D")))
   (is (= 1000 (read-roman-numeral "M")))
-  (is (= 2    (read-roman-numeral "II"))))
+  (is (= 2    (read-roman-numeral "II")))
+  (is (= 4    (read-roman-numeral "IV"))))
 
 ;(deftest test-1
 ;  (is (= 14 (read-roman-numeral "XIV"))))
