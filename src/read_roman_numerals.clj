@@ -5,8 +5,9 @@
     (->> (partition 2 1  nil number)
          (reduce (fn [acc [num next-num]]
                    (let [val (symbols num)
-                         next-val (if (nil? next-num) 0 (symbols next-num))]
-                     (if (< val next-val) (- acc val) (+ acc val)))) 0)
+                         next-val (if (nil? next-num) 0 (symbols next-num))
+                         op (if (< val next-val) - +)]
+                     (op acc val))) 0)
       )
   )
 )
