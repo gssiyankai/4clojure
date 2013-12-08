@@ -2,12 +2,10 @@
 
 (defn solve [trump]
   (let [winner (fn [cards]
-                 (if (nil? trump) (->> (filter #(= ((first cards) :suit) (% :suit)) cards)
-                                       (reduce #(if (> (%1 :rank) (%2 :rank)) %1 %2))
-                                  )
-                                  (->> (filter #(= trump (% :suit)) cards)
-                                       (reduce #(if (> (%1 :rank) (%2 :rank)) %1 %2))
-                                  )
+                 (let [cards-trump (if (nil? trump) ((first cards) :suit) trump)]
+                   (->> (filter #(= cards-trump (% :suit)) cards)
+                        (reduce #(if (> (%1 :rank) (%2 :rank)) %1 %2))
+                   )
                  )
                )]
     winner
