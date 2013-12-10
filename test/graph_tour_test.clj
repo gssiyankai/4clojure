@@ -13,15 +13,18 @@
                     [:a :d] [:b :d] [:c :d]]))))
 
 (deftest test-4
+  (is (= true (tour [[1 2] [2 3] [3 4] [4 1]]))))
+
+(deftest test-5
   (is (= false (tour [[:a :b] [:a :b] [:a :c] [:c :a]
                     [:a :d] [:b :d] [:c :d]]))))
 
-(deftest test-5
+(deftest test-6
   (is (= true (tour [[:a :b] [:a :c] [:c :b] [:a :e]
                    [:b :e] [:a :d] [:b :d] [:c :e]
                    [:d :e] [:c :f] [:d :f]]))))
 
-(deftest test-5
+(deftest test-7
   (is (= false (tour [[1 2] [2 3] [2 4] [2 5]]))))
 
 (run-tests 'graph_tour_test)
