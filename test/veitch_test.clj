@@ -12,8 +12,8 @@
                      #{'A 'B 'c 'D}
                      #{'A 'B 'C 'd}})
           #{#{'A 'c}
-              #{'A 'b}
-              #{'B 'C 'd}})))
+            #{'A 'b}
+            #{'B 'C 'd}})))
 
 (deftest test-2
   (is (= (simplify #{#{'A 'B 'C 'D}
@@ -30,7 +30,7 @@
                      #{'A 'b 'C 'd}
                      #{'A 'b 'C 'D}})
           #{#{'a 'c}
-              #{'A 'C}})))
+            #{'A 'C}})))
 
 (deftest test-4
   (is (= (simplify #{#{'a 'b 'c}
