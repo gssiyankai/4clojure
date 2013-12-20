@@ -54,7 +54,7 @@
         (and (every? (partial re-matches #"n*m") res)
              (= res (distinct res))))))
 
-(deftest test-5
+(deftest test-6
   (is (let [res (take 2000 (language '{:states #{q0 q1 q2 q3 q4 q5 q6 q7 q8 q9}
                                        :alphabet #{i l o m p t}
                                        :start q0
