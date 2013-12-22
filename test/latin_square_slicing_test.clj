@@ -20,15 +20,15 @@
                     [D C A B]])
           {})))
 
-;(deftest test-2
-;  (is (= (process '[[A B C D E F]
-;                    [B C D E F A]
-;                    [C D E F A B]
-;                    [D E F A B C]
-;                    [E F A B C D]
-;                    [F A B C D E]])
-;        {6 1})))
-;
+(deftest test-2
+  (is (= (process '[[A B C D E F]
+                    [B C D E F A]
+                    [C D E F A B]
+                    [D E F A B C]
+                    [E F A B C D]
+                    [F A B C D E]])
+        {6 1})))
+
 ;(deftest test-3
 ;  (is (= (process '[[A B C D]
 ;                    [B A D C]
