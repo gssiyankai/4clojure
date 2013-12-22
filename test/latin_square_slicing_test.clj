@@ -29,21 +29,21 @@
                     [F A B C D E]])
         {6 1})))
 
-;(deftest test-3
-;  (is (= (process '[[A B C D]
-;                    [B A D C]
-;                    [D C B A]
-;                    [C D A B]])
-;        {4 1, 2 4})))
-;
-;(deftest test-4
-;  (is (= (process '[[B D A C B]
-;                    [D A B C A]
-;                    [A B C A B]
-;                    [B C A B C]
-;                    [A D B C A]])
-;        {3 3})))
-;
+(deftest test-3
+  (is (= (process '[[A B C D]
+                    [B A D C]
+                    [D C B A]
+                    [C D A B]])
+        {4 1, 2 4})))
+
+(deftest test-4
+  (is (= (process '[[B D A C B]
+                    [D A B C A]
+                    [A B C A B]
+                    [B C A B C]
+                    [A D B C A]])
+        {3 3})))
+
 ;(deftest test-5
 ;  (is (= (process [[2 4 6 3]
 ;                   [3 4 6 2]
