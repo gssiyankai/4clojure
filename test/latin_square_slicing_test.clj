@@ -11,7 +11,9 @@
                                 [C A C]])))
   (is (= false (latin-square? '[[A B C]
                                 [B D A]
-                                [C A B]]))))
+                                [C A B]])))
+  (is (= [[[1 2] [2 1]][[1 2][1 2]]] (cartesian-product '[[[1 2]][[2 1][1 2]]])))
+  (is (= '[[[A B C D][A C D B][B A D C][D C A B]]] (cartesian-product '[[[A B C D]][[A C D B]][[B A D C]][[D C A B]]]))))
 
 (deftest test-1
   (is (= (process '[[A B C D]
