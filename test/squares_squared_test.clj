@@ -2,6 +2,11 @@
   (:use clojure.test)
   (:use squares_squared))
 
+(deftest test-0
+  (is (= (squares 2 2) [2]))
+  (is (= (squares 2 4) [2 4]))
+  (is (= (squares 2 256) [2 4 16 256])))
+
 (deftest test-1
   (is (= (transform 2 2) ["2"])))
 
@@ -27,7 +32,7 @@
                             " 6 4 "
                             "  1  "])))
 
-(deftest test-5
+(deftest test-6
   (is (= (transform 10 10000) ["   0   "
                                "  1 0  "
                                " 0 1 0 "
