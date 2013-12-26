@@ -13,22 +13,43 @@
 )
 
 (defn mineral? [bitmap x y]
-  (= 1 (get-in bitmap [x y]))
+  (= 1 (get-in bitmap [y x]))
 )
 
-(defn triangle [bitmap height width surface x y dx dy]
+(defn within-bounds? [height width x y]
+  (and (>= x 0)
+       (>= y 0)
+       (< x width)
+       (< y height))
+)
+
+(defn triangle1 [bitmap height width surface x y dx dy]
   (let [x2 (+ x dx)
         y2 (+ y dy)]
-    (if (and (>= x2 0)
-             (>= y2 0)
-             (< x2 width)
-             (< y2 height)
+    (if (and (within-bounds? height width x2 y2)
              (every? true?
                (for [delta (range (inc (Math/abs dx)))]
-                 (mineral? bitmap (+ y2 delta) (- x delta))
+                 (mineral? bitmap (- x delta) (+ y2 delta))
                )
              ))
-      (triangle bitmap height width (+ surface (inc (Math/abs dx))) x y (dec dx) (dec dy))
+      (triangle1 bitmap height width (+ surface (inc (Math/abs dx))) x y (dec dx) (dec dy))
+      surface
+    )
+  )
+)
+
+(defn triangle2 [bitmap height width surface x y dx dy]
+  (let [x1 (- x dx)
+        x2 (+ x dx)
+        y2 (+ y dy)]
+    (if (and (within-bounds? height width x1 y2)
+             (within-bounds? height width x2 y2)
+             (every? true?
+               (for [delta (range (inc dx))]
+                 (mineral? bitmap (+ x1 delta) y2)
+               )
+             ))
+      (triangle2 bitmap height width (+ surface (inc (* dx 2))) x y (inc dx) (dec dy))
       surface
     )
   )
@@ -39,10 +60,17 @@
         height (count bitmap)
         width (count (first bitmap))
         max-area (apply max
-                   (for [x (range width)
-                         y (range height)
-                         :when (mineral? bitmap x y)]
-                         (triangle bitmap height width 1 x y -1 -1)
+                   (concat
+                     (for [x (range width)
+                           y (range height)
+                           :when (mineral? bitmap x y)]
+                           (triangle1 bitmap height width 1 x y -1 -1)
+                     )
+                     (for [x (range width)
+                           y (range height)
+                           :when (mineral? bitmap x y)]
+                       (triangle2 bitmap height width 1 x y 1 -1)
+                     )
                    )
                  )]
     (if (not= 1 max-area)
