@@ -8,7 +8,7 @@
         max-bitmap-size (reduce #(max %1 (count %2)) 0 bs)
         pad (fn [bitmap p]
               (concat (repeat (- p (count bitmap)) 0) bitmap))]
-    (vec (map #(vec (pad % max-bitmap-size)) bs))
+    (mapv #(vec (pad % max-bitmap-size)) bs)
   )
 )
 
@@ -67,8 +67,7 @@
 
 (defn transpose [bitmap]
   (->> (map reverse bitmap)
-       (apply map vector)
-       (vec)
+       (apply mapv vector)
   )
 )
 
