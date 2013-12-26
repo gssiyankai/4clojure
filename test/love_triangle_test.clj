@@ -3,15 +3,15 @@
   (:use love_triangle))
 
 (deftest test-0
-  (is (= [[1 1 1 1]] (to-binary 15)))
-  (is (= [[1 1]] (to-binary 3)))
-  (is (= [[1 0]] (to-binary 2)))
-  (is (= [[1 0 0 0 1]] (to-binary 17)))
+  (is (= [[1 1 1 1]] (to-binary [15])))
+  (is (= [[1 1]] (to-binary [3])))
+  (is (= [[1 0]] (to-binary [2])))
+  (is (= [[1 0 0 0 1]] (to-binary [17])))
   (is (= [[1 0 0 0 1]
           [1 0 1 1 0]
           [0 0 1 1 0]
           [0 1 1 1 0]
-          [1 0 1 1 0]] (to-binary 17 22 6 14 22))))
+          [1 0 1 1 0]] (to-binary [17 22 6 14 22]))))
 
 (deftest test-1
   (is (= 10 (area [15 15 15 15 15]))))
