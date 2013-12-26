@@ -13,7 +13,7 @@
 (defn tokenize [squares]
   (let [digits (mapcat str squares)
         size (count digits)
-        dim (int (Math/ceil (Math/sqrt size)))]
+        dim (first (drop-while #(< (* % %) size) (range)))]
     (concat digits (repeat (- (square dim) size) \*))
   )
 )
