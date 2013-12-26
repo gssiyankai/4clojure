@@ -12,17 +12,21 @@
   )
 )
 
+(defn mineral? [bitmap x y]
+  (= 1 (get-in bitmap [x y]))
+)
+
 (defn triangle [bitmap height width surface x y dx dy]
   (let [x2 (+ x dx)
         y2 (+ y dy)]
     (if (and (< x2 width)
              (< y2 height)
-             (every? #(= 1 %)
-               (for [delta (range dx)]
-                 (get-in bitmap [(- y2 delta) (+ x delta)])
+             (every? true?
+               (for [delta (range (inc dx))]
+                 (mineral? bitmap (+ y2 delta) (+ x delta))
                )
              ))
-      (triangle bitmap height width (+ surface (inc dx)) x y (inc dx) (inc dy))
+      (triangle bitmap height width (+ surface (inc dx)) x y (inc dx) (dec dy))
       surface
     )
   )
@@ -31,12 +35,17 @@
 (defn area [[& mine]]
   (let [bitmap (apply to-binary mine)
         height (count bitmap)
-        width (count (first bitmap))]
-    (apply max
-      (for [x (range height)
-            y (range width)]
-        (triangle bitmap height width 1 x y 1 -1)
-      )
+        width (count (first bitmap))
+        max-area (apply max
+                   (for [x (range width)
+                         y (range height)
+                         :when (mineral? bitmap x y)]
+                     (triangle bitmap height width 1 x y 1 -1)
+                   )
+                 )]
+    (if (not= 1 max-area)
+      max-area
+      nil
     )
   )
 )
