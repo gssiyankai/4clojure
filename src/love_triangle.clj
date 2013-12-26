@@ -1,6 +1,6 @@
 (ns love_triangle)
 
-(defn to-binary [[& ns]]
+(defn to-binary [& ns]
   (let [convert (fn convert [n]
                   (when-not (zero? n)
                     (cons (bit-and n 1) (lazy-seq (convert (bit-shift-right n 1))))))
