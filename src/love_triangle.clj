@@ -19,14 +19,16 @@
 (defn triangle [bitmap height width surface x y dx dy]
   (let [x2 (+ x dx)
         y2 (+ y dy)]
-    (if (and (< x2 width)
+    (if (and (>= x2 0)
+             (>= y2 0)
+             (< x2 width)
              (< y2 height)
              (every? true?
-               (for [delta (range (inc dx))]
-                 (mineral? bitmap (+ y2 delta) (+ x delta))
+               (for [delta (range (inc (Math/abs dx)))]
+                 (mineral? bitmap (+ y2 delta) (- x delta))
                )
              ))
-      (triangle bitmap height width (+ surface (inc dx)) x y (inc dx) (dec dy))
+      (triangle bitmap height width (+ surface (inc (Math/abs dx))) x y (dec dx) (dec dy))
       surface
     )
   )
@@ -40,7 +42,7 @@
                    (for [x (range width)
                          y (range height)
                          :when (mineral? bitmap x y)]
-                     (triangle bitmap height width 1 x y 1 -1)
+                         (triangle bitmap height width 1 x y -1 -1)
                    )
                  )]
     (if (not= 1 max-area)
