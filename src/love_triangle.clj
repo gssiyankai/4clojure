@@ -24,8 +24,8 @@
 )
 
 (defn triangle1
-  ([bitmap height width surface x y]
-    (triangle1 bitmap height width surface x y -1 -1)
+  ([bitmap height width x y]
+    (triangle1 bitmap height width 1 x y -1 -1)
   )
   ([bitmap height width surface x y dx dy]
     (let [x2 (+ x dx)
@@ -44,8 +44,8 @@
 )
 
 (defn triangle2
-  ([bitmap height width surface x y]
-    (triangle2 bitmap height width surface x y 1 -1)
+  ([bitmap height width x y]
+    (triangle2 bitmap height width 1 x y 1 -1)
   )
   ([bitmap height width surface x y dx dy]
     (let [x1 (- x dx)
@@ -65,25 +65,16 @@
   )
 )
 
-(defn triangle3
-  ([bitmap height width surface x y]
-    (triangle3 bitmap height width surface x y 1 1)
+(defn transpose [bitmap]
+  (->> (map reverse bitmap)
+       (apply map vector)
+       (vec)
   )
-  ([bitmap height width surface x y dx dy]
-    (let [x2 (+ x dx)
-          y1 (- y dy)
-          y2 (+ y dy)]
-      (if (and (within-bounds? height width x2 y1)
-               (within-bounds? height width x2 y2)
-               (every? true?
-                 (for [delta (range (inc dy))]
-                   (mineral? bitmap x2 (+ y1 delta))
-                 )
-               ))
-        (triangle3 bitmap height width (+ surface (inc (* dy 2))) x y (inc dx) (inc dy))
-        surface
-      )
-    )
+)
+
+(defn triangle3
+  ([bitmap height width x y]
+    (triangle2 (transpose bitmap) width height y (dec (- width x)))
   )
 )
 
@@ -94,7 +85,7 @@
         max-area (->> (map #(for [x (range width)
                                   y (range height)
                                  :when (mineral? bitmap x y)]
-                              (% bitmap height width 1 x y)
+                              (% bitmap height width x y)
                             )
                            [triangle1 triangle2 triangle3])
                       (flatten)
