@@ -5,7 +5,9 @@
 (deftest test-0
   (is (= (squares 2 2) [2]))
   (is (= (squares 2 4) [2 4]))
-  (is (= (squares 2 256) [2 4 16 256])))
+  (is (= (squares 2 256) [2 4 16 256]))
+  (is (= (tokenize [3 9 81]) [\3 \9 \8 \1]))
+  (is (= (tokenize [2 4 16 256]) [\2 \4 \1 \6 \2 \5 \6 \* \*])))
 
 (deftest test-1
   (is (= (transform 2 2) ["2"])))
